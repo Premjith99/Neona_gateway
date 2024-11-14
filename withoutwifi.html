@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neona</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      color: #333333;
+    }
+    header, footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: relative;
+    }
+    header #logoutButton {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: 1px solid white;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+      header #logoutButton:hover {
+      background-color: white;
+      color: #007bff;
+    }
+    section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+    form {
+      width: 80%;
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+      
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+    .form-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .button-container button {
+      width: 28%;
+      padding: 15px;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+    .button-container button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    }
+    button[type="submit"] {
+      background-color: #28a745;
+    }
+    button[type="button"] {
+      background-color: #dc3545;
+    }
+    .button-container .reset {
+      background-color: #ffc107;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>NEONA</h1>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+  </header>
+
+  <section>
+    <form action="store_data_withoutwifi.php" method="POST">
+      <div class="form-group">
+        <label for="apn">APN:</label>
+        <input type="text" id="apn" name="apn" required>
+      </div>
+
+      <div class="form-group">
+        <label for="serverAddress">Server Address:</label>
+        <input type="text" id="serverAddress" name="serverAddress" required>
+      </div>
+
+      <div class="form-group">
+        <label for="portUp">Port Up:</label>
+        <input type="text" id="portUp" name="portUp" required>
+      </div>
+
+      <div class="form-group">
+        <label for="portDown">Port Down:</label>
+        <input type="text" id="portDown" name="portDown" required>
+      </div>
+      <div class="button-container">
+        <button type="submit">Submit</button>
+        <button type="button" onclick="restartDevice()">Reset and Restart</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    function logout() {
+      window.location.href = "login.html";
+    }
+
+    function restartDevice() {
+    // Show a confirmation dialog box
+    if (confirm("Do you want to restart the device?")) {
+      // Show a message indicating the device is restarting
+      const messageElement = document.createElement('div');
+      messageElement.innerText = "The device is restarting...";
+      messageElement.id = "restartMessage";
+      document.body.appendChild(messageElement);
+
+      // Make a request to restart.php
+      fetch('restart.php')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          console.log('Device restart successful: ', data); // Optional: Log the result
+        })
+        .catch(error => {
+          console.error('There was a problem with the restart request:', error); // Log any errors
+        });
+
+      // Remove the message after 5 seconds
+      setTimeout(() => {
+        const element = document.getElementById("restartMessage");
+        if (element) {
+          element.remove();
+        }
+      }, 5000); // 5000 milliseconds = 5 seconds
+    }
+  }
+
+</script>
+
+</body>
+</html>
+
+

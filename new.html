@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Password - Neona</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      color: #333333;
+    }
+    header {
+      background-color: darkblue;
+      color: white;
+      text-align: center;
+      padding: 10px; /* Reduced padding */
+    }
+    header h1 {
+      font-size: 24px; /* Reduced font size */
+      margin: 0;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 80vh;
+    }
+    form {
+      width: 50%;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    input {
+      width: calc(100% - 20px);
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      border: 1px solid #bdc3c7;
+      border-radius: 4px;
+    }
+    button {
+      padding: 12px;
+      background-color: darkblue;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .reset-password-button {
+      text-align: center;
+    }
+    .reset-password-button button {
+      color: darkblue;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Reset Password</h1>
+  </header>
+
+  <section>
+    <form id="resetPasswordForm" action="reset_password.php" method="post" onsubmit="return validateForm()">
+      <label for="current_username">Current Username:</label>
+      <input type="text" id="current_username" name="current_username" required>
+
+      <label for="current_password">Current Password:</label>
+      <input type="password" id="current_password" name="current_password" required>
+
+      <label for="new_username">New Username:</label>
+      <input type="text" id="new_username" name="new_username" required>
+
+      <label for="new_password">New Password:</label>
+      <input type="password" id="new_password" name="new_password" required>
+
+      <label for="retype_new_password">Retype New Password:</label>
+      <input type="password" id="retype_new_password" name="retype_new_password" required>
+      <span id="passwordError" style="color: red; display: none;">Passwords do not match.</span>
+
+      <button type="submit">Reset Password</button>
+    </form>
+    <!-- PHP code to display messages -->
+    <!-- Reset password button -->
+    <div class="reset-password-button">
+      <button onclick="window.location.href='login.html';">Back to Login</button>
+    </div>
+  </section>
+
+  <script>
+    function validateForm() {
+      var newPassword = document.getElementById("new_password").value;
+      var retypeNewPassword = document.getElementById("retype_new_password").value;
+      var errorSpan = document.getElementById("passwordError");
+
+      if (newPassword !== retypeNewPassword) {
+        errorSpan.style.display = "block";
+        return false; // Prevent form submission
+      } else {
+        errorSpan.style.display = "none";
+        return true; // Allow form submission
+      }
+    }
+  </script>
+</body>
+</html>

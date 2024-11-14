@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neona </title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      color: #333333;
+    }
+    header, footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: relative;
+    }
+    header #logoutButton {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: 1px solid white;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header #logoutButton:hover {
+      background-color: white;
+      color: #007bff;
+    }
+    section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+    form {
+      width: 80%;
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+    .form-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .button-container button {
+      width: 28%;
+      padding: 15px;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+    .button-container button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    }
+    button[type="submit"] {
+      background-color: #28a745;
+    }
+    button[type="button"] {
+      background-color: #dc3545;
+    }
+    .button-container .reset {
+      background-color: #ffc107;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>NEONA</h1>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+  </header>
+
+  <section>
+    <form action="store_data.php" method="post">
+      <div class="form-group">
+        <label for="wifiSSID">WiFi SSID:</label>
+        <input type="text" id="wifiSSID" name="wifiSSID">
+      </div>
+
+      <div class="form-group">
+        <label for="wifiPassword">WiFi Password:</label>
+        <input type="password" id="wifiPassword" name="wifiPassword">
+      </div>
+
+      <div class="form-group">
+        <label for="apn">APN:</label>
+        <input type="text" id="apn" name="apn" required>
+      </div>
+
+      <div class="form-group">
+        <label for="serverAddress">Server Address:</label>
+        <input type="text" id="serverAddress" name="serverAddress" required>
+      </div>
+
+      <div class="form-group">
+        <label for="portUp">Port Up:</label>
+        <input type="text" id="portUp" name="portUp" required>
+      </div>
+
+      <div class="form-group">
+        <label for="portDown">Port Down:</label>
+        <input type="text" id="portDown" name="portDown" required>
+      </div>
+
+      <div class="button-container">
+        <button type="submit">Submit</button>
+        <button type="button" class="reset" onclick="resetSettings()">Reset</button>
+        <button type="button" onclick="restartDevice()">Restart</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    function logout() {
+      window.location.href = "login.html";
+    }
+
+    function resetSettings() {
+      if (confirm("Are you sure you want to reset the settings?")) {
+        // Add your reset logic here
+        alert("Settings have been reset!");
+      }
+    }
+
+    function restartDevice() {
+      if (confirm("Are you sure you want to restart the device?")) {
+        // Add your restart logic here
+        alert("Device is restarting...");
+      }
+    }
+  </script>
+
+</body>
+</html>
